@@ -27,6 +27,9 @@ class AVLTree {
             AVLNode* left;
             AVLNode* right;
 
+            //Node Constructor
+            AVLNode();
+
             // 0, 1 or 2
             size_t numChildren() const;
             // true or false
@@ -41,23 +44,25 @@ class AVLTree {
     public:
         AVLTree();
         bool insert(const std::string& key, size_t value);
-        bool remove(const std::string& key);
+        //bool remove(const std::string& key);
         bool contains(const std::string& key) const;
-        std::optional<size_t> get (const std::string& key) const;
-        size_t& operator[] (const std::string& key);
-        vector<std::string> findRange(const std::string& lowKey,
-                                      const std:: string& highKey) const;
-        std::vector<std::string> keys() const;
-        size_t size() const;
-        size_t getHeight() const;
-        AVLTree(const AVLTree& other);
-        void operator=(const AVLTree& other);
-        ~AVLTree();
-        friend std::ostream& operator<<(ostream& os, const AVLTree & avlTree);
+        //std::optional<size_t> get (const std::string& key) const;
+        //size_t& operator[] (const std::string& key);
+        //vector<std::string> findRange(const std::string& lowKey,
+        //                              const std:: string& highKey) const;
+        //std::vector<std::string> keys() const;
+        //size_t size() const;
+        //size_t getHeight() const;
+        //AVLTree(const AVLTree& other);
+        //void operator=(const AVLTree& other);
+        //~AVLTree();
+        //friend std::ostream& operator<<(ostream& os, const AVLTree & avlTree);
 
     //Declaring Private Methods
     private:
         AVLNode* root;
+
+        bool contains(AVLNode* node, const std::string& key) const;
 
         /* Helper methods for remove */
         // this overloaded remove will do the recursion to remove the node

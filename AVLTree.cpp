@@ -2,12 +2,65 @@
 
 #include <string>
 
+//Node Constructor
+AVLTree::AVLNode::AVLNode(){
+    key = "Null";
+    value = 0;
+    left = nullptr;
+    right = nullptr;
+    height = 0;
+}
 
+//Insert Node into Tree
+bool AVLTree::insert(const std::string& key, size_t value){
+    AVLNode* newNode = new AVLNode();
+
+    if (root == nullptr){
+        root = newNode;
+        root->key = key;
+        root->value = value;
+        return true;
+    } else if (contains(key)){
+        return false;
+    }
+
+    return false;
+}
+
+//Public Contains Method
+bool AVLTree::contains(const std::string& key) const {
+    return contains(root, key);
+}
+
+//Private Contains Method
+bool AVLTree::contains(AVLNode* node, const std::string& key) const{
+    //Base Case 1
+    if (node == nullptr){
+        return false;
+    }
+    //Base Case 2
+    else if (node->key == key){
+        return true;
+    }
+    //If key is greater than current
+    else if (key < node->key) {
+        return contains(node->left, key);
+    }
+    //If key is less than current
+    else if (key > node->key){
+        return contains(node->right, key);
+    }
+    //All Fails
+    else {
+        return false;
+    }
+}
+//AVL Tree constructor
 AVLTree::AVLTree(){
     root = nullptr;
 }
 
-
+//Pre-configured Methods
 size_t AVLTree::AVLNode::numChildren() const {
     return 0;
 }
