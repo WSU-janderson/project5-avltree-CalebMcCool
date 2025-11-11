@@ -12,8 +12,8 @@ using namespace std;
 
 
 int main() {
-    // AVLTree tree;
-    // bool insertResult;
+    AVLTree tree;
+    bool insertResult;
     // insertResult = tree.insert("F", 'F');
     // insertResult = tree.insert("F", 'F'); // false, no duplicates allowed
     // insertResult = tree.insert("K", 'K');

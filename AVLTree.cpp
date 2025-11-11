@@ -2,6 +2,12 @@
 
 #include <string>
 
+
+AVLTree::AVLTree(){
+    root = nullptr;
+}
+
+
 size_t AVLTree::AVLNode::numChildren() const {
     return 0;
 }
