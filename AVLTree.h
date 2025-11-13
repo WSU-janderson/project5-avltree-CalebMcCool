@@ -29,6 +29,7 @@ class AVLTree {
 
             //Node Constructor
             AVLNode();
+            AVLNode(std::string& key);
 
             // 0, 1 or 2
             size_t numChildren() const;
@@ -61,8 +62,7 @@ class AVLTree {
     //Declaring Private Methods
     private:
         AVLNode* root;
-
-        bool contains(AVLNode* node, const std::string& key) const;
+        AVLNode* containsRecursive(AVLNode* node, const std::string& key) const;
 
         /* Helper methods for remove */
         // this overloaded remove will do the recursion to remove the node

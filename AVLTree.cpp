@@ -11,48 +11,44 @@ AVLTree::AVLNode::AVLNode(){
     height = 0;
 }
 
+//Node Constructor with Value Parameter
+AVLTree::AVLNode::AVLNode(std::string& key) :
+    key(key)
+{
+    value = 0;
+    left = nullptr;
+    right = nullptr;
+    height = 0;
+}
 //Insert Node into Tree
 bool AVLTree::insert(const std::string& key, size_t value){
-    AVLNode* newNode = new AVLNode();
-
-    if (root == nullptr){
-        root = newNode;
-        root->key = key;
-        root->value = value;
-        return true;
-    } else if (contains(key)){
-        return false;
-    }
 
     return false;
 }
 
 //Public Contains Method
 bool AVLTree::contains(const std::string& key) const {
-    return contains(root, key);
+
+    return containsRecursive(root, key) != nullptr;
 }
 
 //Private Contains Method
-bool AVLTree::contains(AVLNode* node, const std::string& key) const{
+AVLTree::AVLNode* AVLTree::containsRecursive(AVLNode* node, const std::string& key) const{
     //Base Case 1
     if (node == nullptr){
-        return false;
+        return nullptr;
     }
     //Base Case 2
     else if (node->key == key){
-        return true;
+        return node;
     }
     //If key is greater than current
     else if (key < node->key) {
-        return contains(node->left, key);
+        return containsRecursive(node->left, key);
     }
     //If key is less than current
-    else if (key > node->key){
-        return contains(node->right, key);
-    }
-    //All Fails
-    else {
-        return false;
+    else{
+        return containsRecursive(node->right, key);
     }
 }
 //AVL Tree constructor

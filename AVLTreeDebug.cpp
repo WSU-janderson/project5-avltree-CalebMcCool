@@ -15,6 +15,7 @@ int main() {
     AVLTree tree;
     bool insertResult;
     insertResult = tree.insert("F", 'F');
+    insertResult = tree.insert("A", 'A');
     insertResult = tree.insert("F", 'F'); // false, no duplicates allowed
     // insertResult = tree.insert("K", 'K');
     // insertResult = tree.insert("X", 'X');// single rotate left
@@ -46,12 +47,12 @@ int main() {
     // cout << "tree size: " << tree.size() << endl; // 10
     // cout << "tree height: " << tree.getHeight() << endl; // 3
     // cout << endl;
-//
-//    // contains
-//    bool containsResult;
-//    containsResult = tree.contains("A"); // true
-//    containsResult = tree.contains("N"); // false
-//
+
+    // contains
+    bool containsResult;
+    containsResult = tree.contains("A"); // true
+    containsResult = tree.contains("N"); // false
+
 //    // get
 //    optional<int> getResult;
 //
