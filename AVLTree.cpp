@@ -218,22 +218,25 @@ void AVLTree::balanceNode(AVLNode *&node) {
     if (balanceParent < -1){
         balanceChild = getBalance(node->right);
 
-        if (balanceChild <= 0){
-            //Right-Right Rotation
-
-        } if (balanceChild > 0){
-            //Right-Left Rotation
+        if (balanceChild > 0){
+            //Right-Left Case
+            node->right = rotateRight(node->right);
         }
+
+        //Right-Right Case
+        node = rotateLeft(node);
 
     //If Left Heavy from Parent
     } if (balanceParent > 1) {
         balanceChild = getBalance(node->left);
 
         if (balanceChild >= 0) {
-            //Left-Right Rotation
-        } if (balanceChild < 0) {
-            //Left-Left Rotation
+            //Left-Right Case
+            node->left = rotateLeft(node->left);
         }
+
+        //Left-Left Case
+        node = rotateRight(node);
     }
 
 }
