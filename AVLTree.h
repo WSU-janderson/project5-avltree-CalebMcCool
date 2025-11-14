@@ -62,6 +62,7 @@ class AVLTree {
     //Declaring Private Methods
     private:
         AVLNode* root;
+        AVLNode* insertRecursive(AVLNode* node, const std::string& key, size_t value);
         AVLNode* containsRecursive(AVLNode* node, const std::string& key) const;
         size_t getHeightRecursive(AVLNode* node) const;
 

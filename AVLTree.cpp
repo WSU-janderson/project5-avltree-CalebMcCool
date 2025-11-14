@@ -22,8 +22,41 @@ AVLTree::AVLNode::AVLNode(std::string& key) :
 }
 //Insert Node into Tree
 bool AVLTree::insert(const std::string& key, size_t value){
+    if (contains(key) == true){
+        return false;
+    } else {
+        root = insertRecursive(root, key, value);
+        return true;
+    }
 
-    return false;
+
+}
+
+AVLTree::AVLNode* AVLTree::insertRecursive(AVLNode* node, const std::string& key, size_t value) {
+    //If NULL Node
+    if (node == nullptr) {
+        AVLNode* newNode = new AVLNode;
+        newNode->key = key;
+        newNode->value = value;
+        return newNode;
+    }
+
+    //Traverse the Tree
+    if (key < node->key) {
+        node->left = insertRecursive(node->left, key, value);
+    } else if (key > node->key) {
+        node->right = insertRecursive(node->right, key, value);
+    }
+
+    //
+
+
+
+
+
+
+
+
 }
 
 //Public Contains Method
