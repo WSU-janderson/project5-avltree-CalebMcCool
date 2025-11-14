@@ -56,6 +56,33 @@ AVLTree::AVLTree(){
     root = nullptr;
 }
 
+//Get Height Method (AVL Tree)
+size_t AVLTree::getHeight() const{
+    return getHeightRecursive(root);
+}
+
+size_t AVLTree::getHeightRecursive(AVLNode* node) const {
+    if (node == nullptr) {
+        return -1;
+    }
+
+    size_t leftHeight = getHeightRecursive(node->left);
+    size_t rightHeight = getHeightRecursive(node->right);
+
+    //If right child is greater
+    if (rightHeight > leftHeight){
+        return (1 + rightHeight);
+
+    //If left child is greater
+    } if (rightHeight < leftHeight){
+        return (1 + leftHeight);
+    }
+
+    //If they are equal
+    return 1 + leftHeight;
+
+}
+
 //Pre-configured Methods
 size_t AVLTree::AVLNode::numChildren() const {
     return 0;

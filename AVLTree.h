@@ -53,7 +53,7 @@ class AVLTree {
         //                              const std:: string& highKey) const;
         //std::vector<std::string> keys() const;
         //size_t size() const;
-        //size_t getHeight() const;
+        size_t getHeight() const;
         //AVLTree(const AVLTree& other);
         //void operator=(const AVLTree& other);
         //~AVLTree();
@@ -63,6 +63,7 @@ class AVLTree {
     private:
         AVLNode* root;
         AVLNode* containsRecursive(AVLNode* node, const std::string& key) const;
+        size_t getHeightRecursive(AVLNode* node) const;
 
         /* Helper methods for remove */
         // this overloaded remove will do the recursion to remove the node
