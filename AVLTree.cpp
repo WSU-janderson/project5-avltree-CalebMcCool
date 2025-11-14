@@ -12,13 +12,14 @@ AVLTree::AVLNode::AVLNode(){
 }
 
 //Node Constructor with Value Parameter
-AVLTree::AVLNode::AVLNode(std::string& key) :
-    key(key)
+AVLTree::AVLNode::AVLNode(const std::string& key) :
+    key(key),
+    value(0),
+    left(nullptr),
+    right(nullptr),
+    height(0)
 {
-    value = 0;
-    left = nullptr;
-    right = nullptr;
-    height = 0;
+
 }
 //Insert Node into Tree
 bool AVLTree::insert(const std::string& key, size_t value){
@@ -35,8 +36,7 @@ bool AVLTree::insert(const std::string& key, size_t value){
 AVLTree::AVLNode* AVLTree::insertRecursive(AVLNode* node, const std::string& key, size_t value) {
     //If NULL Node
     if (node == nullptr) {
-        AVLNode* newNode = new AVLNode;
-        newNode->key = key;
+        AVLNode* newNode = new AVLNode(key);
         newNode->value = value;
         return newNode;
     }
@@ -48,14 +48,34 @@ AVLTree::AVLNode* AVLTree::insertRecursive(AVLNode* node, const std::string& key
         node->right = insertRecursive(node->right, key, value);
     }
 
-    //
+    //Update Height
+    int left;
+    int right;
 
+        //Setting Heights for Child Nodes
+        if (node->left == nullptr) {
+            left = -1;
+        } else {
+            left = node->left->height;
+        }
 
+        if (node->right == nullptr) {
+            right = -1;
+        } else {
+            right = node->right->height;
+        }
 
+        //Comparing Heights for Child Nodes
+        if (left > right) {
+            node->height = left + 1;
+        } else {
+            node->height = right + 1;
+        }
 
+    //Balance the Node
+    balanceNode(node);
 
-
-
+    return node;
 
 }
 

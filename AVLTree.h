@@ -29,7 +29,7 @@ class AVLTree {
 
             //Node Constructor
             AVLNode();
-            AVLNode(std::string& key);
+            AVLNode(const std::string& key);
 
             // 0, 1 or 2
             size_t numChildren() const;
