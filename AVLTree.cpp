@@ -138,11 +138,21 @@ size_t AVLTree::getHeightRecursive(AVLNode* node) const {
 
 //Pre-configured Methods
 size_t AVLTree::AVLNode::numChildren() const {
-    return 0;
+    if (left == nullptr && right == nullptr){
+        return 0;
+    } else if (left == nullptr || right == nullptr) {
+        return 1;
+    } else {
+        return 2;
+    }
 }
 
 bool AVLTree::AVLNode::isLeaf() const {
-    return false;
+    if (left == nullptr && right == nullptr){
+        return true;
+    } else {
+        return false;
+    }
 }
 
 size_t AVLTree::AVLNode::getHeight() const {
@@ -193,9 +203,75 @@ bool AVLTree::removeNode(AVLNode*& current){
     return true;
 }
 
+//Remove Node Function
 bool AVLTree::remove(AVLNode *&current, KeyType key) {
     return false;
 }
 
+//Balance Node Function
 void AVLTree::balanceNode(AVLNode *&node) {
+    //Initalizing balance factors
+    int balanceParent = getBalance(node);
+    int balanceChild;
+
+    //If right Heavy from Parent
+    if (balanceParent < -1){
+        balanceChild = getBalance(node->right);
+
+        if (balanceChild <= 0){
+            //Right-Right Rotation
+
+        } if (balanceChild > 0){
+            //Right-Left Rotation
+        }
+
+    //If Left Heavy from Parent
+    } if (balanceParent > 1) {
+        balanceChild = getBalance(node->left);
+
+        if (balanceChild >= 0) {
+            //Left-Right Rotation
+        } if (balanceChild < 0) {
+            //Left-Left Rotation
+        }
+    }
+
 }
+
+//Getter for Balance
+int AVLTree::getBalance(AVLNode* node) {
+    if (node == nullptr) {
+        return 0;
+    }
+
+    //Copied Height Calculation from Insert
+    int left;
+    int right;
+
+    //Setting Heights for Child Nodes
+    if (node->left == nullptr) {
+        left = -1;
+    } else {
+        left = node->left->height;
+    }
+
+    if (node->right == nullptr) {
+        right = -1;
+    } else {
+        right = node->right->height;
+    }
+
+    return left - right;
+}
+
+//Rotation Functions
+AVLTree::AVLNode* AVLTree::rotateRight(AVLNode* node){
+
+    return node;
+}
+
+AVLTree::AVLNode* AVLTree::rotateLeft(AVLNode* node){
+
+    return node;
+}
+

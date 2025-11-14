@@ -31,7 +31,6 @@ class AVLTree {
             AVLNode();
             AVLNode(const std::string& key);
 
-            // 0, 1 or 2
             size_t numChildren() const;
             // true or false
             bool isLeaf() const;
@@ -73,6 +72,11 @@ class AVLTree {
         bool removeNode(AVLNode*& current);
         // You will implement this, but it is needed for removeNode()
         void balanceNode(AVLNode*& node);
+        int getBalance(AVLNode* node);
+
+        //Rotate Functions
+        AVLNode* rotateRight(AVLNode* node);
+        AVLNode* rotateLeft(AVLNode* node);
 
 };
 
