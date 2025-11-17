@@ -1,6 +1,7 @@
 #include "AVLTree.h"
 
 #include <string>
+#include <iostream>
 
 //Node Constructor
 AVLTree::AVLNode::AVLNode(){
@@ -165,6 +166,12 @@ AVLTree::AVLNode* AVLTree::containsRecursive(AVLNode* node, const std::string& k
         return containsRecursive(node->right, key);
     }
 }
+
+std::optional<size_t> get (const std::string& key) const{
+
+}
+
+
 //AVL Tree constructor
 AVLTree::AVLTree(){
     root = nullptr;
@@ -197,6 +204,32 @@ size_t AVLTree::getHeightRecursive(AVLNode* node) const {
 
 }
 
+//OStream Methods
+std::ostream& operator<<(ostream& os, const AVLTree& avlTree){
+    avlTree.printRecursive(os, avlTree.root, 0);
+    return os;
+}
+
+//OStream Method Recursive
+void AVLTree::printRecursive(std::ostream& os, AVLTree::AVLNode* node, int depth) const{
+    //If Null
+    if (node == nullptr) {
+        return;
+    }
+
+    //Print Right Subtree
+    printRecursive(os, node->right, depth + 1);
+
+    for (int i=0; i<depth; i++){
+        os << "    ";
+    }
+
+    os << "{" << node->key << ": " << node->value << "}" << std::endl;
+
+    //Print Left Subtree
+    printRecursive(os, node->left, depth + 1);
+}
+
 //Pre-configured Methods
 size_t AVLTree::AVLNode::numChildren() const {
     if (left == nullptr && right == nullptr){
@@ -217,7 +250,26 @@ bool AVLTree::AVLNode::isLeaf() const {
 }
 
 size_t AVLTree::AVLNode::getHeight() const {
-    return 0;
+    int leftHeight;
+    int rightHeight;
+
+    if (left == nullptr) {
+        leftHeight = -1;
+    } else {
+        leftHeight = left->height;
+    }
+
+    if (right == nullptr) {
+        rightHeight = -1;
+    } else {
+        rightHeight = right->height;
+    }
+
+    if (leftHeight > rightHeight) {
+        return leftHeight + 1;
+    } else {
+        return rightHeight + 1;
+    }
 }
 
 bool AVLTree::removeNode(AVLNode*& current){
@@ -233,8 +285,10 @@ bool AVLTree::removeNode(AVLNode*& current){
     } else if (current->numChildren() == 1) {
         // case 2 - replace current with its only child
         if (current->right) {
+            current->right->parent = current->parent;
             current = current->right;
         } else {
+            current->left->parent = current->parent;
             current = current->left;
         }
     } else {
@@ -277,6 +331,9 @@ void AVLTree::balanceNode(AVLNode *&node) {
 
     //If right Heavy from Parent
     if (balanceParent < -1){
+        if (node->right == nullptr) {
+            return;
+        }
         balanceChild = getBalance(node->right);
 
         if (balanceChild > 0){
@@ -289,9 +346,12 @@ void AVLTree::balanceNode(AVLNode *&node) {
 
     //If Left Heavy from Parent
     } if (balanceParent > 1) {
+        if (node->left == nullptr) {
+            return;
+        }
         balanceChild = getBalance(node->left);
 
-        if (balanceChild >= 0) {
+        if (balanceChild < 0) {
             //Left-Right Case
             node->left = rotateLeft(node->left);
         }
@@ -330,6 +390,9 @@ int AVLTree::getBalance(AVLNode* node) {
 
 //Rotation Functions
 AVLTree::AVLNode* AVLTree::rotateRight(AVLNode* node){
+    if (node == nullptr || node->left == nullptr){
+        return node;
+    }
     AVLNode* current = node->left;
     AVLNode* sub = current->right;
 
@@ -340,8 +403,16 @@ AVLTree::AVLNode* AVLTree::rotateRight(AVLNode* node){
         sub->parent = node;
     }
 
-    current->parent = node->parent;
-    node->parent = current;
+    if (current->parent != nullptr) {
+        if (current->parent->left == node) {
+            current->parent->left = current;
+        } else if (current->parent->right == node) {
+            current->parent->right = current;
+        }
+    }
+
+    //current->parent = node->parent;
+    //node->parent = current;
 
     //Updating Height of Node
         int left;
@@ -386,6 +457,9 @@ AVLTree::AVLNode* AVLTree::rotateRight(AVLNode* node){
 }
 
 AVLTree::AVLNode* AVLTree::rotateLeft(AVLNode* node){
+    if (node == nullptr || node->right == nullptr){
+        return node;
+    }
     AVLNode* current = node->right;
     AVLNode* sub = current->left;
 
@@ -396,8 +470,15 @@ AVLTree::AVLNode* AVLTree::rotateLeft(AVLNode* node){
         sub->parent = node;
     }
 
-    current->parent = node->parent;
-    node->parent = current;
+    if (current->parent != nullptr) {
+        if (current->parent->left == node) {
+            current->parent->left = current;
+        } else if (current->parent->right == node) {
+            current->parent->right = current;
+        }
+    }
+    //current->parent = node->parent;
+    //node->parent = current;
 
     //Updating Height of Node
     int left;

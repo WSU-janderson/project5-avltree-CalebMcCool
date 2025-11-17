@@ -48,7 +48,7 @@ class AVLTree {
         bool insert(const std::string& key, size_t value);
         bool remove(const std::string& key);
         bool contains(const std::string& key) const;
-        //std::optional<size_t> get (const std::string& key) const;
+        std::optional<size_t> get (const std::string& key) const;
         //size_t& operator[] (const std::string& key);
         //vector<std::string> findRange(const std::string& lowKey,
         //                              const std:: string& highKey) const;
@@ -59,6 +59,7 @@ class AVLTree {
         //void operator=(const AVLTree& other);
         //~AVLTree();
         friend std::ostream& operator<<(ostream& os, const AVLTree & avlTree);
+        void printRecursive(std::ostream& os, AVLTree::AVLNode* node, int depth) const;
 
     //Declaring Private Methods
     private:
