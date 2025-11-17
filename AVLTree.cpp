@@ -30,6 +30,7 @@ bool AVLTree::insert(const std::string& key, size_t value){
         return false;
     } else {
         root = insertRecursive(root, key, value);
+        treeSize++;
         return true;
     }
 
@@ -89,6 +90,7 @@ bool AVLTree::remove(const std::string& key){
         return false;
     } else {
         root = removeRecursive(root, key);
+        treeSize--;
         return true;
     }
 }
@@ -143,7 +145,6 @@ AVLTree::AVLNode* AVLTree::removeRecursive(AVLNode* node, const std::string& key
 
 //Public Contains Method
 bool AVLTree::contains(const std::string& key) const {
-
     return containsRecursive(root, key) != nullptr;
 }
 
@@ -167,8 +168,38 @@ AVLTree::AVLNode* AVLTree::containsRecursive(AVLNode* node, const std::string& k
     }
 }
 
-std::optional<size_t> get (const std::string& key) const{
+std::optional<size_t> AVLTree::get (const std::string& key) const{
+    AVLNode* current = root;
 
+    while (current != nullptr){
+        //If found
+        if (key == current->key) {
+            return current->value;
+        } else if (key < current->key) {
+            current = current->left;
+        } else {
+            current = current->right;
+        }
+    }
+
+    //If not found
+    return std::nullopt;
+}
+
+size_t& AVLTree::operator[] (const std::string& key){
+    AVLNode* node = containsRecursive(root, key);
+
+    if (node != nullptr) {
+        return node->value;
+    }
+
+    insert(key, 0);
+    return containsRecursive(root, key)->value;
+
+}
+
+size_t AVLTree::size() const{
+    return treeSize;
 }
 
 
