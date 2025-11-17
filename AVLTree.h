@@ -54,7 +54,7 @@ class AVLTree {
         bool contains(const std::string& key) const;
         std::optional<size_t> get (const std::string& key) const;
         size_t& operator[] (const std::string& key);
-        vector<std::string> findRange(const std::string& lowKey, const std:: string& highKey) const;
+        vector<size_t> findRange(const std::string& lowKey, const std:: string& highKey) const;
         //std::vector<std::string> keys() const;
         size_t size() const;
         size_t getHeight() const;
@@ -70,7 +70,7 @@ class AVLTree {
         AVLNode* insertRecursive(AVLNode* node, const std::string& key, size_t value);
         AVLNode* removeRecursive(AVLNode* node, const std::string& key);
         AVLNode* containsRecursive(AVLNode* node, const std::string& key) const;
-        void findRangeRecursive(AVLNode* node, const std::string& lowKey, const std::string& highKey, std::vector<std::string>&result) const;
+        void findRangeRecursive(AVLNode* node, const std::string& lowKey, const std::string& highKey, std::vector<size_t>&result) const;
         size_t getHeightRecursive(AVLNode* node) const;
 
         /* Helper methods for remove */

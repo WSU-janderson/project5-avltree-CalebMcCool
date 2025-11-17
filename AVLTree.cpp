@@ -201,13 +201,13 @@ size_t AVLTree::size() const{
     return treeSize;
 }
 
-vector<std::string> AVLTree::findRange(const std::string& lowKey, const std:: string& highKey) const{
-    std::vector<std::string> result;
+vector<size_t> AVLTree::findRange(const std::string& lowKey, const std:: string& highKey) const{
+    std::vector<size_t> result;
     findRangeRecursive(root, lowKey, highKey, result);
     return result;
 }
 
-void AVLTree::findRangeRecursive(AVLNode* node, const std::string& lowKey, const std::string& highKey, std::vector<std::string>&result) const{
+void AVLTree::findRangeRecursive(AVLNode* node, const std::string& lowKey, const std::string& highKey, std::vector<size_t>&result) const{
     //If node is null
     if (node == nullptr) {
         return;
@@ -218,7 +218,7 @@ void AVLTree::findRangeRecursive(AVLNode* node, const std::string& lowKey, const
     }
 
     if (node->key >= lowKey && node->key <= highKey) {
-        result.push_back(node->key);
+        result.push_back(node->value);
     }
 
     if (node->key < highKey) {
