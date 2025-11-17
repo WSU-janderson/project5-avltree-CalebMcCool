@@ -269,12 +269,114 @@ int AVLTree::getBalance(AVLNode* node) {
 
 //Rotation Functions
 AVLTree::AVLNode* AVLTree::rotateRight(AVLNode* node){
+    AVLNode* current = node->left;
+    AVLNode* sub = current->right;
 
-    return node;
+    current->right = node;
+    node->left = sub;
+
+    if (sub != nullptr) {
+        sub->parent = node;
+    }
+
+    current->parent = node->parent;
+    node->parent = current;
+
+    //Updating Height of Node
+        int left;
+        int right;
+
+        if (node->left == nullptr) {
+            left = -1;
+        } else {
+            left = node->left->height;
+        }
+        if (node->right == nullptr) {
+            right = -1;
+        } else {
+            right = node->right->height;
+        }
+
+        if (left > right) {
+            node->height = left + 1;
+        } else {
+            node->height = right + 1;
+        }
+
+    //Updating Height of Current
+        if (current->left == nullptr) {
+            left = -1;
+        } else {
+            left = current->left->height;
+        }
+        if (current->right == nullptr) {
+            right = -1;
+        } else {
+            right = current->right->height;
+        }
+
+        if (left > right) {
+            current->height = left + 1;
+        } else {
+            current->height = right + 1;
+        }
+
+    return current;
 }
 
 AVLTree::AVLNode* AVLTree::rotateLeft(AVLNode* node){
+    AVLNode* current = node->right;
+    AVLNode* sub = current->left;
 
-    return node;
+    current->left = node;
+    node->right = sub;
+
+    if (sub != nullptr) {
+        sub->parent = node;
+    }
+
+    current->parent = node->parent;
+    node->parent = current;
+
+    //Updating Height of Node
+    int left;
+    int right;
+
+    if (node->left == nullptr) {
+        left = -1;
+    } else {
+        left = node->left->height;
+    }
+    if (node->right == nullptr) {
+        right = -1;
+    } else {
+        right = node->right->height;
+    }
+    //Fill Out node->height=
+    if (left > right) {
+        node->height = left + 1;
+    } else {
+        node->height = right + 1;
+    }
+
+    //Updating Height of Current
+    if (current->left == nullptr) {
+        left = -1;
+    } else {
+        left = current->left->height;
+    }
+    if (current->right == nullptr) {
+        right = -1;
+    } else {
+        right = current->right->height;
+    }
+    //fill out current->height=
+    if (left > right) {
+        current->height = left + 1;
+    } else {
+        current->height = right + 1;
+    }
+
+    return current;
 }
 

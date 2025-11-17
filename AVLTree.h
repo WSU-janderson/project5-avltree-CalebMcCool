@@ -24,8 +24,10 @@ class AVLTree {
             ValueType value;
             size_t height;
 
+
             AVLNode* left;
             AVLNode* right;
+            AVLNode* parent;
 
             //Node Constructor
             AVLNode();
