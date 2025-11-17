@@ -8,6 +8,7 @@ AVLTree::AVLNode::AVLNode(){
     value = 0;
     left = nullptr;
     right = nullptr;
+    parent = nullptr;
     height = 0;
 }
 
@@ -17,6 +18,7 @@ AVLTree::AVLNode::AVLNode(const std::string& key) :
     value(0),
     left(nullptr),
     right(nullptr),
+    parent(nullptr),
     height(0)
 {
 
@@ -77,6 +79,65 @@ AVLTree::AVLNode* AVLTree::insertRecursive(AVLNode* node, const std::string& key
 
     return node;
 
+}
+
+//Remove Method
+bool AVLTree::remove(const std::string& key){
+    //Check if key exists
+    if (contains(key) == false){
+        return false;
+    } else {
+        root = removeRecursive(root, key);
+        return true;
+    }
+}
+
+AVLTree::AVLNode* AVLTree::removeRecursive(AVLNode* node, const std::string& key){
+    //Key Not Found
+    if (node == nullptr) {
+        return nullptr;
+    }
+
+    //Traverse Tree
+    if (key < node->key) {
+        node->left = removeRecursive(node->left, key);
+    } else if (key > node->key) {
+        node->right = removeRecursive(node->right, key);
+    } else {
+        removeNode(node);
+    }
+
+    //After Deletion Nullptr
+    if (node == nullptr) {
+        return nullptr;
+    }
+
+    //Updating Height
+    int left;
+    int right;
+
+    if (node->left == nullptr) {
+        left = -1;
+    } else {
+        left = node->left->height;
+    }
+
+    if (node->right == nullptr) {
+        right = -1;
+    } else {
+        right = node->right->height;
+    }
+
+        //Comparing Heights for Child Nodes
+        if (left > right) {
+            node->height = left + 1;
+        } else {
+            node->height = right + 1;
+        }
+
+    //Balance Node
+    balanceNode(node);
+    return node;
 }
 
 //Public Contains Method

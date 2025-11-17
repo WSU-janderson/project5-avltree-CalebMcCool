@@ -32,11 +32,11 @@ class AVLTree {
             //Node Constructor
             AVLNode();
             AVLNode(const std::string& key);
-
+            //Implemented
             size_t numChildren() const;
-            // true or false
+            //Implemented
             bool isLeaf() const;
-            // number of hops to deepest leaf node
+            //Implemented
             size_t getHeight() const;
 
 
@@ -46,7 +46,7 @@ class AVLTree {
     public:
         AVLTree();
         bool insert(const std::string& key, size_t value);
-        //bool remove(const std::string& key);
+        bool remove(const std::string& key);
         bool contains(const std::string& key) const;
         //std::optional<size_t> get (const std::string& key) const;
         //size_t& operator[] (const std::string& key);
@@ -58,12 +58,13 @@ class AVLTree {
         //AVLTree(const AVLTree& other);
         //void operator=(const AVLTree& other);
         //~AVLTree();
-        //friend std::ostream& operator<<(ostream& os, const AVLTree & avlTree);
+        friend std::ostream& operator<<(ostream& os, const AVLTree & avlTree);
 
     //Declaring Private Methods
     private:
         AVLNode* root;
         AVLNode* insertRecursive(AVLNode* node, const std::string& key, size_t value);
+        AVLNode* removeRecursive(AVLNode* node, const std::string& key);
         AVLNode* containsRecursive(AVLNode* node, const std::string& key) const;
         size_t getHeightRecursive(AVLNode* node) const;
 
@@ -72,7 +73,7 @@ class AVLTree {
         bool remove(AVLNode*& current, KeyType key);
         // removeNode contains the logic for actually removing a node based on the numebr of children
         bool removeNode(AVLNode*& current);
-        // You will implement this, but it is needed for removeNode()
+        //Implemented
         void balanceNode(AVLNode*& node);
         int getBalance(AVLNode* node);
 
