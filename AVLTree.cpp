@@ -227,6 +227,23 @@ void AVLTree::findRangeRecursive(AVLNode* node, const std::string& lowKey, const
 
 }
 
+std::vector<std::string> AVLTree::keys() const {
+
+    std::vector<std::string> result;
+    keysRecursive(root, result);
+    return result;
+}
+
+void AVLTree::keysRecursive(AVLNode* node, std::vector<std::string>& result) const {
+    if (node == nullptr) {
+        return;
+    }
+
+    keysRecursive(node->left, result);
+    result.push_back(node->key);
+    keysRecursive(node->right ,result);
+
+}
 
 //AVL Tree constructor
 AVLTree::AVLTree(){

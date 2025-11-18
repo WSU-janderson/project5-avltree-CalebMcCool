@@ -43,7 +43,7 @@ int main() {
     cout << tree << endl;
 
     // // size and getHeight
-    // cout << "tree size: " << tree.size() << endl; // 10
+    cout << "tree size: " << tree.size() << endl; // 10
     cout << "tree height: " << tree.getHeight() << endl; // 3
     cout << endl;
 
