@@ -58,9 +58,9 @@ class AVLTree {
         std::vector<std::string> keys() const;
         size_t size() const;
         size_t getHeight() const;
-        //AVLTree(const AVLTree& other);
-        //void operator=(const AVLTree& other);
-        //~AVLTree();
+        AVLTree(const AVLTree& other);
+        void operator=(const AVLTree& other);
+        ~AVLTree();
         friend std::ostream& operator<<(ostream& os, const AVLTree & avlTree);
         void printRecursive(std::ostream& os, AVLTree::AVLNode* node, int depth) const;
 
@@ -73,6 +73,8 @@ class AVLTree {
         void findRangeRecursive(AVLNode* node, const std::string& lowKey, const std::string& highKey, std::vector<size_t>&result) const;
         void keysRecursive(AVLNode* node, std::vector<std::string>& result) const;
         size_t getHeightRecursive(AVLNode* node) const;
+        AVLNode* copyRecursive(AVLNode* other);
+        void deleteRecursive(AVLNode* node);
 
         /* Helper methods for remove */
         // this overloaded remove will do the recursion to remove the node

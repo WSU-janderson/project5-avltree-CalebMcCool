@@ -274,7 +274,68 @@ size_t AVLTree::getHeightRecursive(AVLNode* node) const {
 
     //If they are equal
     return 1 + leftHeight;
+}
 
+//Copy Constructor Method
+AVLTree::AVLTree(const AVLTree& other) {
+    treeSize = other.treeSize;
+    root = copyRecursive(other.root);
+}
+
+//Copy Constructor Method Recursive
+AVLTree::AVLNode* AVLTree::copyRecursive(AVLNode* other) {
+    if (other == nullptr) {
+        return nullptr;
+    }
+
+    //Create new node for copy, and update values
+    AVLNode* newNode = new AVLNode(other->key);
+    newNode->parent = nullptr;
+    newNode->height = other->height;
+    newNode->value = other->value;
+
+    newNode->left = copyRecursive(other->left);
+    if (newNode->left != nullptr) {
+        newNode->left->parent = newNode;
+    }
+
+    newNode->right = copyRecursive(other->right);
+    if (newNode->right != nullptr) {
+        newNode->right->parent = newNode;
+    }
+
+    return newNode;
+}
+
+//Operator = Overload
+void AVLTree::operator=(const AVLTree& other) {
+    //Regarding Self-assignment
+    if (this == &other) {
+        return;
+    }
+
+    deleteRecursive(root);
+
+    root = copyRecursive(other.root);
+    treeSize = other.treeSize;
+}
+
+//Destructor Method
+AVLTree::~AVLTree() {
+    deleteRecursive(root);
+    root = nullptr;
+    treeSize = 0;
+}
+
+//Destructor Method Recursive
+void AVLTree::deleteRecursive(AVLNode* node) {
+    if (node == nullptr) {
+        return;
+    }
+
+    deleteRecursive(node->left);
+    deleteRecursive(node->right);
+    delete node;
 }
 
 //OStream Methods
