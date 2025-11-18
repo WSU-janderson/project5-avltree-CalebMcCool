@@ -168,23 +168,39 @@ AVLTree::AVLNode* AVLTree::containsRecursive(AVLNode* node, const std::string& k
     }
 }
 
+//Get Method for AVLTree
 std::optional<size_t> AVLTree::get (const std::string& key) const{
-    AVLNode* current = root;
+    AVLNode* result = getRecursive(root, key);
 
-    while (current != nullptr){
-        //If found
-        if (key == current->key) {
-            return current->value;
-        } else if (key < current->key) {
-            current = current->left;
-        } else {
-            current = current->right;
-        }
+    //If result is null
+    if (result == nullptr) {
+        return std::nullopt;
     }
 
-    //If not found
-    return std::nullopt;
+    return result->value;
 }
+
+//Get Method for AVLTree Recursive
+AVLTree::AVLNode* AVLTree::getRecursive(AVLNode* node, const std::string& key) const {
+    if (node == nullptr) {
+        return nullptr;
+    }
+
+    else if (node->key == key){
+        return node;
+    }
+
+    //If Smaller
+    else if (key < node->key) {
+        return getRecursive(node->left, key);
+    }
+
+    //If Larger
+    else {
+        return getRecursive(node->right, key);
+    }
+}
+
 
 size_t& AVLTree::operator[] (const std::string& key){
     AVLNode* node = containsRecursive(root, key);
@@ -252,28 +268,12 @@ AVLTree::AVLTree(){
 
 //Get Height Method (AVL Tree)
 size_t AVLTree::getHeight() const{
-    return getHeightRecursive(root);
-}
-
-size_t AVLTree::getHeightRecursive(AVLNode* node) const {
-    if (node == nullptr) {
+    //If the root is null, the height is -1
+    if (root == nullptr) {
         return -1;
     }
 
-    size_t leftHeight = getHeightRecursive(node->left);
-    size_t rightHeight = getHeightRecursive(node->right);
-
-    //If right child is greater
-    if (rightHeight > leftHeight){
-        return (1 + rightHeight);
-
-    //If left child is greater
-    } if (rightHeight < leftHeight){
-        return (1 + leftHeight);
-    }
-
-    //If they are equal
-    return 1 + leftHeight;
+    return root->height;
 }
 
 //Copy Constructor Method
