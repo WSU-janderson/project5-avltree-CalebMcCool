@@ -1,3 +1,27 @@
+//------------------------------
+//AVLTree Implementation
+//
+//Created By: Caleb McCool
+//Date: November 19, 2025
+//
+//AVLNode:
+//  This is an element (or node) of the AVL Tree class. Each
+//  node holds a key value pair as well as:
+//    - left child pointer
+//    - right child pointer
+//    - parent pointer
+//    - height
+//
+//AVLTree:
+//  This is a tree-like data structure where each node is
+//  balanced to meet sorting and height requirements. Methods
+//  can be used for easy manipulation of the tree and there is
+//  a destructor, copy constructor, os friend, and overloaded
+//  operators. The AVLTree has local variables:
+//    - treeSize
+//    - root pointer
+
+
 #include "AVLTree.h"
 
 #include <string>
@@ -24,7 +48,7 @@ AVLTree::AVLNode::AVLNode(const std::string& key) :
 {
 
 }
-//Insert Node into Tree
+//Insert Node Method
 bool AVLTree::insert(const std::string& key, size_t value){
     if (contains(key) == true){
         return false;
@@ -37,6 +61,7 @@ bool AVLTree::insert(const std::string& key, size_t value){
 
 }
 
+//Insert Node Method Recursive
 AVLTree::AVLNode* AVLTree::insertRecursive(AVLNode* node, const std::string& key, size_t value) {
     //If NULL Node
     if (node == nullptr) {
@@ -95,6 +120,7 @@ bool AVLTree::remove(const std::string& key){
     }
 }
 
+//Remove Method Recursive
 AVLTree::AVLNode* AVLTree::removeRecursive(AVLNode* node, const std::string& key){
     //Key Not Found
     if (node == nullptr) {
@@ -143,12 +169,12 @@ AVLTree::AVLNode* AVLTree::removeRecursive(AVLNode* node, const std::string& key
     return node;
 }
 
-//Public Contains Method
+//Contains Method
 bool AVLTree::contains(const std::string& key) const {
     return containsRecursive(root, key) != nullptr;
 }
 
-//Private Contains Method
+//Contains Method Recursive
 AVLTree::AVLNode* AVLTree::containsRecursive(AVLNode* node, const std::string& key) const{
     //Base Case 1
     if (node == nullptr){
@@ -375,6 +401,7 @@ size_t AVLTree::AVLNode::numChildren() const {
     }
 }
 
+//isLeaf Method (Checks if the node is a leaf)
 bool AVLTree::AVLNode::isLeaf() const {
     if (left == nullptr && right == nullptr){
         return true;
@@ -383,6 +410,7 @@ bool AVLTree::AVLNode::isLeaf() const {
     }
 }
 
+//getHeight Method (checks the height of a node)
 size_t AVLTree::AVLNode::getHeight() const {
     int leftHeight;
     int rightHeight;
@@ -406,6 +434,7 @@ size_t AVLTree::AVLNode::getHeight() const {
     }
 }
 
+//Remove Node Method (Removes a node from the tree)
 bool AVLTree::removeNode(AVLNode*& current){
     if (!current) {
         return false;
@@ -590,6 +619,7 @@ AVLTree::AVLNode* AVLTree::rotateRight(AVLNode* node){
     return current;
 }
 
+//rotateLeft Method (Performs rotate left on a node)
 AVLTree::AVLNode* AVLTree::rotateLeft(AVLNode* node){
     if (node == nullptr || node->right == nullptr){
         return node;

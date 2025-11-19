@@ -1,6 +1,25 @@
-/**
- * AVLTree.h
- */
+//------------------------------
+//AVLTree Header File
+//
+//Created By: Caleb McCool
+//Date: November 19, 2025
+//
+//AVLNode:
+//  This is an element (or node) of the AVL Tree class. Each
+//  node holds a key value pair as well as:
+//    - left child pointer
+//    - right child pointer
+//    - parent pointer
+//    - height
+//
+//AVLTree:
+//  This is a tree-like data structure where each node is
+//  balanced to meet sorting and height requirements. Methods
+//  can be used for easy manipulation of the tree and there is
+//  a destructor, copy constructor, os friend, and overloaded
+//  operators. The AVLTree has local variables:
+//    - treeSize
+//    - root pointer
 
 #ifndef AVLTREE_H
 #define AVLTREE_H
